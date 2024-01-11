@@ -1,54 +1,37 @@
-import './App.css';
-import Todo from './components/Todo';
+import React from 'react'
+import { useState } from 'react'
 
 function App() {
+  const [list, setList] = useState([])
+  const [input, setInput] = useState("")
+
+  const addTodo = (todo) => {
+    const newTodo = {
+      id: Math.random(),
+      todo: todo,
+    }
+    setList([...list, newTodo])
+    setInput("")
+  }
   return (
-    <div className="todoapp stack-large">
+    <div>
       <h1>To-Do List</h1>
-      <form>
-        <h2 className="label-wrapper">
-          <label htmlFor="new-todo-input" className="label__lg">
-            What needs to be done?
-          </label>
-        </h2>
-        <input
-          type="text"
-          id="new-todo-input"
-          className="input input__lg"
-          name="text"
-          autoComplete="off"
-        />
-        <button type="submit" className="btn btn__primary btn__lg">
-          Add
-        </button>
-      </form>
-      <div className="filters btn-group stack-exception">
-        <button type="button" className="btn toggle-btn" aria-pressed="true">
-          <span className="visually-hidden">Show </span>
-          <span>all</span>
-          <span className="visually-hidden"> tasks</span>
-        </button>
-        <button type="button" className="btn toggle-btn" aria-pressed="false">
-          <span className="visually-hidden">Show </span>
-          <span>Active</span>
-          <span className="visually-hidden"> tasks</span>
-        </button>
-        <button type="button" className="btn toggle-btn" aria-pressed="false">
-          <span className="visually-hidden">Show </span>
-          <span>Completed</span>
-          <span className="visually-hidden"> tasks</span>
-        </button>
-      </div>
-      <h2 id="list-heading">3 tasks remaining</h2>
-      <ul
-        className="todo-list stack-large stack-exception"
-        aria-labelledby="list-heading">
-        <Todo name="Eat"/>
-        <Todo name="Sleep"/>
-        <Todo name="Repeat"/>
+      <input 
+        type="text" 
+        value={input} 
+        onChange={(e) => setInput(e.target.value)} 
+      />
+      <button onClick={() => addTodo(input)}>Add</button>
+      <ul>
+        {list.map((todo) => (
+          <li key={todo.id}>
+            {todo.todo}
+            <button>X</button>
+          </li>
+        ))}
       </ul>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
