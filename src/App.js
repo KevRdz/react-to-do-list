@@ -25,7 +25,7 @@ function App() {
     <>
       <form className='new-item-form'>
         <div className='form-row'>
-          <labe htmlFor="item">New Item</labe>
+          <label htmlFor="item">New Item</label>
           <input 
             type="text" 
             value={input} 
@@ -37,8 +37,8 @@ function App() {
       </form>
       <h1 className='header'>Todo List</h1>
       <ul className='list'>
-        {list.map((todo) => (
-          <li key={todo.id}>
+        {list.map((todo, index) => (
+          <li key={index}>
             {todo}
             <button className='btn btn-danger' onClick={() => handleDelete()}>X</button>
           </li>

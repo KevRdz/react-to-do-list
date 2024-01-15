@@ -66,6 +66,8 @@ body{
   font-size: 1.5rem;
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .list {
@@ -82,7 +84,9 @@ body{
 .list li {
   display: flex;
   gap: 0.5rem;
+  margin-top: 10px;
   align-items: center;
+  justify-content: center;
 }
 
 .list li label {
