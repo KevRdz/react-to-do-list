@@ -1,41 +1,50 @@
 import React from 'react'
 import { useState } from 'react'
+import "./App.css"
 
 function App() {
   const [list, setList] = useState([])
   const [input, setInput] = useState("")
 
-  const addTodo = (todo) => {
-    const newTodo = {
-      id: Math.random(),
-      todo: todo,
-    }
-    setList([...list, newTodo])
+  function handleChange(e) {
+    setInput(e.target.value)
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    setList([...list, input])
     setInput("")
   }
 
-  const deleteTodo = (id) => {
-    const newList = list.filter((todo) => todo.id !== id)
-    setList(newList)
+  const handleDelete = (index) => {
+    const newTodos = [...list]
+    newTodos.splice(index, 1)
+    setList(newTodos)
   }
   return (
-    <div>
-      <h1>To-Do List</h1>
-      <input 
-        type="text" 
-        value={input} 
-        onChange={(e) => setInput(e.target.value)} 
-      />
-      <button onClick={() => addTodo(input)}>Add</button>
-      <ul>
+    <>
+      <form className='new-item-form'>
+        <div className='form-row'>
+          <labe htmlFor="item">New Item</labe>
+          <input 
+            type="text" 
+            value={input} 
+            onChange={handleChange}
+            id='item'
+          />
+        </div>
+        <button className='btn' onClick={handleSubmit}>Add</button>
+      </form>
+      <h1 className='header'>Todo List</h1>
+      <ul className='list'>
         {list.map((todo) => (
           <li key={todo.id}>
-            {todo.todo}
-            <button onClick={() => deleteTodo(todo.id)}>X</button>
+            {todo}
+            <button className='btn btn-danger' onClick={() => handleDelete()}>X</button>
           </li>
         ))}
       </ul>
-    </div>
+    </>
   )
 }
 
